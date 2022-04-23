@@ -12,7 +12,7 @@ namespace AlvarezGabriel_GOL
 {
     public partial class Randomize : Form
     {
-        int value;
+        public int value;
         public Randomize()
         {
             InitializeComponent();
@@ -28,6 +28,11 @@ namespace AlvarezGabriel_GOL
             Random random = new Random();
             value = random.Next(0, int.MaxValue);
             numericUpDown1.Value = value;
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+            value = (int)numericUpDown1.Value;
         }
     }
 }

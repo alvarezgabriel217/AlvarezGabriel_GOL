@@ -43,6 +43,7 @@ namespace AlvarezGabriel_GOL
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(120, 26);
             this.numericUpDown1.TabIndex = 0;
+            this.numericUpDown1.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // label1
             // 
@@ -65,6 +66,7 @@ namespace AlvarezGabriel_GOL
             // 
             // button2
             // 
+            this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.button2.Location = new System.Drawing.Point(270, 164);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 33);
@@ -74,6 +76,7 @@ namespace AlvarezGabriel_GOL
             // 
             // button3
             // 
+            this.button3.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button3.Location = new System.Drawing.Point(351, 164);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 33);

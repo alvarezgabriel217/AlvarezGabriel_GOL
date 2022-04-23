@@ -20,6 +20,9 @@ namespace AlvarezGabriel_GOL
         // Height
         static int height = 10;
 
+        // Time in milliseconds
+        static int time = 100;
+
         // Universe boundary behaviour
         bool boundary = false;
 
@@ -28,6 +31,10 @@ namespace AlvarezGabriel_GOL
 
         // The Scratch pad array
         bool[,] scratchPad = new bool[width, height];
+
+        bool grid = true;
+
+        bool neighborCount = true;
 
         // Drawing colors
         Color gridColor = Color.Black;
@@ -44,7 +51,7 @@ namespace AlvarezGabriel_GOL
             InitializeComponent();
 
             // Setup the timer
-            timer.Interval = 100; // milliseconds
+            timer.Interval = time; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
         }
@@ -290,8 +297,12 @@ namespace AlvarezGabriel_GOL
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                     }
 
-                    // Outline the cell with a pen
-                    e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+
+                    if (grid)
+                    {
+                        // Outline the cell with a pen
+                        e.Graphics.DrawRectangle(gridPen, cellRect.X, cellRect.Y, cellRect.Width, cellRect.Height);
+                    }
 
 
                     // Font for the number of neighbors of each cell
@@ -303,64 +314,66 @@ namespace AlvarezGabriel_GOL
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
 
-                    // Change color of brush based on the rules
-                    if (boundary)
+                    if (neighborCount)
                     {
+                        // Change color of brush based on the rules
+                        if (boundary)
+                        {
+                            if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
+                            {
+                                neighborBrush = new SolidBrush(Color.Red);
+                            }
+                            if (CountNeighborsFinite(x, y) > 3 && universe[x, y] == true)
+                            {
+                                neighborBrush = new SolidBrush(Color.Red);
+                            }
+                            if (CountNeighborsFinite(x, y) == 3 && universe[x, y] == false)
+                            {
+                                neighborBrush = new SolidBrush(Color.Green);
+                            }
+                            else
+                            {
+                                neighborBrush = new SolidBrush(Color.Red);
+                            }
+                            if ((CountNeighborsFinite(x, y) == 3 || CountNeighborsFinite(x, y) == 2) && universe[x, y] == true)
+                            {
+                                neighborBrush = new SolidBrush(Color.Green);
+                            }
 
-                        if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
-                        {
-                            neighborBrush = new SolidBrush(Color.Red);
-                        }
-                        if (CountNeighborsFinite(x, y) > 3 && universe[x, y] == true)
-                        {
-                            neighborBrush = new SolidBrush(Color.Red);
-                        }
-                        if (CountNeighborsFinite(x, y) == 3 && universe[x, y] == false)
-                        {
-                            neighborBrush = new SolidBrush(Color.Green);
+                            // Draw the number of neighbors of each cell
+                            if (CountNeighborsFinite(x, y) > 0)
+                            {
+                                e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
+                            }
                         }
                         else
                         {
-                            neighborBrush = new SolidBrush(Color.Red);
-                        }
-                        if ((CountNeighborsFinite(x, y) == 3 || CountNeighborsFinite(x, y) == 2) && universe[x, y] == true)
-                        {
-                            neighborBrush = new SolidBrush(Color.Green);
-                        }
+                            if (CountNeighborsToroidal(x, y) < 2 && universe[x, y] == true)
+                            {
+                                neighborBrush = new SolidBrush(Color.Red);
+                            }
+                            if (CountNeighborsToroidal(x, y) > 3 && universe[x, y] == true)
+                            {
+                                neighborBrush = new SolidBrush(Color.Red);
+                            }
+                            if (CountNeighborsToroidal(x, y) == 3 && universe[x, y] == false)
+                            {
+                                neighborBrush = new SolidBrush(Color.Green);
+                            }
+                            else
+                            {
+                                neighborBrush = new SolidBrush(Color.Red);
+                            }
+                            if ((CountNeighborsToroidal(x, y) == 3 || CountNeighborsToroidal(x, y) == 2) && universe[x, y] == true)
+                            {
+                                neighborBrush = new SolidBrush(Color.Green);
+                            }
 
-                        // Draw the number of neighbors of each cell
-                        if (CountNeighborsFinite(x, y) > 0)
-                        {
-                            e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
-                        }
-                    }
-                    else
-                    {
-                        if (CountNeighborsToroidal(x, y) < 2 && universe[x, y] == true)
-                        {
-                            neighborBrush = new SolidBrush(Color.Red);
-                        }
-                        if (CountNeighborsToroidal(x, y) > 3 && universe[x, y] == true)
-                        {
-                            neighborBrush = new SolidBrush(Color.Red);
-                        }
-                        if (CountNeighborsToroidal(x, y) == 3 && universe[x, y] == false)
-                        {
-                            neighborBrush = new SolidBrush(Color.Green);
-                        }
-                        else
-                        {
-                            neighborBrush = new SolidBrush(Color.Red);
-                        }
-                        if ((CountNeighborsToroidal(x, y) == 3 || CountNeighborsToroidal(x, y) == 2) && universe[x, y] == true)
-                        {
-                            neighborBrush = new SolidBrush(Color.Green);
-                        }
-
-                        // Draw the number of neighbors of each cell
-                        if (CountNeighborsToroidal(x, y) > 0)
-                        {
-                            e.Graphics.DrawString(CountNeighborsToroidal(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
+                            // Draw the number of neighbors of each cell
+                            if (CountNeighborsToroidal(x, y) > 0)
+                            {
+                                e.Graphics.DrawString(CountNeighborsToroidal(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
+                            }
                         }
                     }
                 }
@@ -426,6 +439,7 @@ namespace AlvarezGabriel_GOL
                 }
             }
             generations = 0;
+            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
@@ -570,12 +584,32 @@ namespace AlvarezGabriel_GOL
                 graphicsPanel1.Invalidate();
             }
         }
+
+        // Randomizes the cells based on a seed entered by the user or randomly generated.
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Randomize random = new Randomize();
             random.ShowDialog();
+            if (random.DialogResult == DialogResult.OK)
+            {
+                Random rng = new Random(random.value);
+                for (int y = 0; y < universe.GetLength(1); y++)
+                {
+                    for (int x = 0; x < universe.GetLength(0); x++)
+                    {
+                        universe[x, y] = false;
+                        if (rng.Next(0, 3) == 0)
+                        {
+
+                            universe[x, y] = true;
+                        }
+                    }
+                }
+                graphicsPanel1.Invalidate();
+            }
         }
 
+        // Randomizes the cells based on time.
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Random rng = new Random();
@@ -591,6 +625,88 @@ namespace AlvarezGabriel_GOL
                     }
                 }
             }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            FormOptions options = new FormOptions();
+            options.ShowDialog();
+            graphicsPanel1.Invalidate();
+            if (options.DialogResult == DialogResult.OK)
+            {
+                width = options.GridWidth;
+                height = options.GridHeight;
+                time = options.Time;
+                if (width != universe.GetLength(0) || height != universe.GetLength(1))
+                {
+                    universe = new bool[width, height];
+                    scratchPad = new bool[width, height];
+                    graphicsPanel1.Invalidate();
+                }
+                timer.Interval = time;
+            }
+        }
+
+        private void backColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void grtidColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void gridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (grid)
+            {
+                grid = false;
+                gridToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                grid = true;
+                gridToolStripMenuItem.Checked = true;
+
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(neighborCountToolStripMenuItem.Checked ==  true)
+            {
+                neighborCountToolStripMenuItem.Checked = false;
+                neighborCount = false;
+            }
+            else
+            {
+                neighborCountToolStripMenuItem.Checked = true;
+                neighborCount = true;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            boundary = false;
+            toroidalToolStripMenuItem.Checked = true;
+            finiteToolStripMenuItem.Checked = false;
+            graphicsPanel1.Invalidate();
+        }
+
+        private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            boundary = true;
+            toroidalToolStripMenuItem.Checked = false;
+            finiteToolStripMenuItem.Checked = true;
             graphicsPanel1.Invalidate();
         }
     }
