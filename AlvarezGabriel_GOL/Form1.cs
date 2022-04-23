@@ -20,6 +20,9 @@ namespace AlvarezGabriel_GOL
         // Height
         static int height = 10;
 
+        // Universe boundary behaviour
+        bool boundary = false;
+
         // The universe array
         bool[,] universe = new bool[width, height];
 
@@ -46,8 +49,25 @@ namespace AlvarezGabriel_GOL
             timer.Enabled = false; // start timer running
         }
 
-        // Generates a random universe
-        public void RandomUniverse()
+        // Generates a random universe from time
+        public void RandomUniverseTime()
+        {
+            Random rng = new Random();
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    if (rng.Next(0, 3) == 0)
+                    {
+
+                        universe[x, y] = true;
+                    }
+                }
+            }
+        }
+
+        // Generates a random universe from a seed
+        public void RandomUniverseSeed()
         {
             Random rng = new Random();
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -70,25 +90,51 @@ namespace AlvarezGabriel_GOL
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
-                    if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
+                    if (boundary)
                     {
-                        scratchPad[x, y] = false;
-                    }
-                    if (CountNeighborsFinite(x, y) > 3 && universe[x, y] == true)
-                    {
-                        scratchPad[x, y] = false;
-                    }
-                    if (CountNeighborsFinite(x, y) == 3 && universe[x, y] == false)
-                    {
-                        scratchPad[x, y] = true;
+                        if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
+                        {
+                            scratchPad[x, y] = false;
+                        }
+                        if (CountNeighborsFinite(x, y) > 3 && universe[x, y] == true)
+                        {
+                            scratchPad[x, y] = false;
+                        }
+                        if (CountNeighborsFinite(x, y) == 3 && universe[x, y] == false)
+                        {
+                            scratchPad[x, y] = true;
+                        }
+                        else
+                        {
+                            scratchPad[x, y] = false;
+                        }
+                        if ((CountNeighborsFinite(x, y) == 3 || CountNeighborsFinite(x, y) == 2) && universe[x, y] == true)
+                        {
+                            scratchPad[x, y] = true;
+                        }
                     }
                     else
                     {
-                        scratchPad[x, y] = false;
-                    }
-                    if ((CountNeighborsFinite(x, y) == 3 || CountNeighborsFinite(x, y) == 2) && universe[x, y] == true)
-                    {
-                        scratchPad[x, y] = true;
+                        if (CountNeighborsToroidal(x, y) < 2 && universe[x, y] == true)
+                        {
+                            scratchPad[x, y] = false;
+                        }
+                        if (CountNeighborsToroidal(x, y) > 3 && universe[x, y] == true)
+                        {
+                            scratchPad[x, y] = false;
+                        }
+                        if (CountNeighborsToroidal(x, y) == 3 && universe[x, y] == false)
+                        {
+                            scratchPad[x, y] = true;
+                        }
+                        else
+                        {
+                            scratchPad[x, y] = false;
+                        }
+                        if ((CountNeighborsToroidal(x, y) == 3 || CountNeighborsToroidal(x, y) == 2) && universe[x, y] == true)
+                        {
+                            scratchPad[x, y] = true;
+                        }
                     }
                 }
             }
@@ -253,36 +299,69 @@ namespace AlvarezGabriel_GOL
                     // Format for the number of neighbors of each cell
                     StringFormat stringFormat = new StringFormat();
 
-                    
+
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
 
                     // Change color of brush based on the rules
-                    if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
+                    if (boundary)
                     {
-                        neighborBrush = new SolidBrush(Color.Red);
-                    }
-                    if (CountNeighborsFinite(x, y) > 3 && universe[x, y] == true)
-                    {
-                        neighborBrush = new SolidBrush(Color.Red);
-                    }
-                    if (CountNeighborsFinite(x, y) == 3 && universe[x, y] == false)
-                    {
-                        neighborBrush = new SolidBrush(Color.Green);
+
+                        if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
+                        {
+                            neighborBrush = new SolidBrush(Color.Red);
+                        }
+                        if (CountNeighborsFinite(x, y) > 3 && universe[x, y] == true)
+                        {
+                            neighborBrush = new SolidBrush(Color.Red);
+                        }
+                        if (CountNeighborsFinite(x, y) == 3 && universe[x, y] == false)
+                        {
+                            neighborBrush = new SolidBrush(Color.Green);
+                        }
+                        else
+                        {
+                            neighborBrush = new SolidBrush(Color.Red);
+                        }
+                        if ((CountNeighborsFinite(x, y) == 3 || CountNeighborsFinite(x, y) == 2) && universe[x, y] == true)
+                        {
+                            neighborBrush = new SolidBrush(Color.Green);
+                        }
+
+                        // Draw the number of neighbors of each cell
+                        if (CountNeighborsFinite(x, y) > 0)
+                        {
+                            e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
+                        }
                     }
                     else
                     {
-                        neighborBrush = new SolidBrush(Color.Red);
-                    }
-                    if ((CountNeighborsFinite(x, y) == 3 || CountNeighborsFinite(x, y) == 2) && universe[x, y] == true)
-                    {
-                        neighborBrush = new SolidBrush(Color.Green);
-                    }
+                        if (CountNeighborsToroidal(x, y) < 2 && universe[x, y] == true)
+                        {
+                            neighborBrush = new SolidBrush(Color.Red);
+                        }
+                        if (CountNeighborsToroidal(x, y) > 3 && universe[x, y] == true)
+                        {
+                            neighborBrush = new SolidBrush(Color.Red);
+                        }
+                        if (CountNeighborsToroidal(x, y) == 3 && universe[x, y] == false)
+                        {
+                            neighborBrush = new SolidBrush(Color.Green);
+                        }
+                        else
+                        {
+                            neighborBrush = new SolidBrush(Color.Red);
+                        }
+                        if ((CountNeighborsToroidal(x, y) == 3 || CountNeighborsToroidal(x, y) == 2) && universe[x, y] == true)
+                        {
+                            neighborBrush = new SolidBrush(Color.Green);
+                        }
 
-                    // Draw the number of neighbors of each cell
-                    if (CountNeighborsFinite(x, y) > 0)
-                    {
-                        e.Graphics.DrawString(CountNeighborsFinite(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
+                        // Draw the number of neighbors of each cell
+                        if (CountNeighborsToroidal(x, y) > 0)
+                        {
+                            e.Graphics.DrawString(CountNeighborsToroidal(x, y).ToString(), font, neighborBrush, cellRect, stringFormat);
+                        }
                     }
                 }
             }
@@ -314,16 +393,6 @@ namespace AlvarezGabriel_GOL
                 // Tell Windows you need to repaint
                 graphicsPanel1.Invalidate();
             }
-        }
-
-        private void Open()
-        {
-
-        }
-
-        private void Import()
-        {
-
         }
 
         private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
@@ -392,11 +461,11 @@ namespace AlvarezGabriel_GOL
                         // to the row string.
                         if (universe[x, y] == true)
                         {
-                            currentRow.Insert(x, "O");
+                            currentRow += "O";
                         }
                         else
                         {
-                            currentRow.Insert(x, ".");
+                            currentRow += ".";
                         }
 
                     }
@@ -437,14 +506,16 @@ namespace AlvarezGabriel_GOL
 
                     // If the row is not a comment then it is a row of cells.
                     // Increment the maxHeight variable for each row read.
-                    if(row[0] != '!')
+
+
+                    if (String.IsNullOrEmpty(row) == false && row[0] != '!')
                     {
                         maxHeight++;
                     }
 
                     // Get the length of the current row string
                     // and adjust the maxWidth variable if necessary.
-                    if(row.Length > maxWidth)
+                    if (row.Length > maxWidth)
                     {
                         maxWidth = row.Length;
                     }
@@ -452,10 +523,15 @@ namespace AlvarezGabriel_GOL
 
                 // Resize the current universe and scratchPad
                 // to the width and height of the file calculated above.
+                width = maxWidth;
+                height = maxHeight;
+                universe = new bool[width, height];
+                scratchPad = new bool[width, height];
 
                 // Reset the file pointer back to the beginning of the file.
                 reader.BaseStream.Seek(0, SeekOrigin.Begin);
 
+                int yPos = 0;
                 // Iterate through the file again, this time reading in the cells.
                 while (!reader.EndOfStream)
                 {
@@ -467,23 +543,55 @@ namespace AlvarezGabriel_GOL
 
                     // If the row is not a comment then 
                     // it is a row of cells and needs to be iterated through.
-                    for (int xPos = 0; xPos < row.Length; xPos++)
+                    if (String.IsNullOrEmpty(row) == false && row[0] != '!')
                     {
-                        // If row[xPos] is a 'O' (capital O) then
-                        // set the corresponding cell in the universe to alive.
-                        if(row[xPos] == 'O')
+                        for (int xPos = 0; xPos < row.Length; xPos++)
                         {
-                            
-                        }
+                            // If row[xPos] is a 'O' (capital O) then
+                            // set the corresponding cell in the universe to alive.
+                            if (row[xPos] == 'O')
+                            {
+                                universe[xPos, yPos] = true;
+                            }
 
-                        // If row[xPos] is a '.' (period) then
-                        // set the corresponding cell in the universe to dead.
+                            // If row[xPos] is a '.' (period) then
+                            // set the corresponding cell in the universe to dead.
+                            if (row[xPos] == '.')
+                            {
+                                universe[xPos, yPos] = false;
+                            }
+                        }
+                        yPos++;
                     }
                 }
 
                 // Close the file.
                 reader.Close();
+                graphicsPanel1.Invalidate();
             }
+        }
+        private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Randomize random = new Randomize();
+            random.ShowDialog();
+        }
+
+        private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random rng = new Random();
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                    if (rng.Next(0, 3) == 0)
+                    {
+
+                        universe[x, y] = true;
+                    }
+                }
+            }
+            graphicsPanel1.Invalidate();
         }
     }
 }
