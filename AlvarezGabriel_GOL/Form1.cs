@@ -650,17 +650,23 @@ namespace AlvarezGabriel_GOL
 
         private void backColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            colorDialog1.ShowDialog();
+             = colorDialog1.Color;
+            graphicsPanel1.Invalidate();
         }
 
         private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            colorDialog1.ShowDialog();
+            cellColor = colorDialog1.Color;
+            graphicsPanel1.Invalidate();
         }
 
         private void grtidColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            colorDialog1.ShowDialog();
+            gridColor = colorDialog1.Color;
+            graphicsPanel1.Invalidate();
         }
 
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
