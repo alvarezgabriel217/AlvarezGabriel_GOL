@@ -39,6 +39,7 @@ namespace AlvarezGabriel_GOL
         // Drawing colors
         Color gridColor = Color.Black;
         Color cellColor = Color.Gray;
+        Color backColor = Color.White;
 
         // The Timer class
         Timer timer = new Timer();
@@ -274,6 +275,8 @@ namespace AlvarezGabriel_GOL
             // A brush for filling number of neighbors of each cell (color)
             Brush neighborBrush = new SolidBrush(Color.Red);
 
+            Brush backBrush = new SolidBrush(backColor);
+
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -285,7 +288,6 @@ namespace AlvarezGabriel_GOL
                     //Rectangle cellRect = Rectangle.Empty;
                     RectangleF cellRect = Rectangle.Empty;
 
-
                     cellRect.X = x * cellWidth;
                     cellRect.Y = y * cellHeight;
                     cellRect.Width = cellWidth;
@@ -295,6 +297,10 @@ namespace AlvarezGabriel_GOL
                     if (universe[x, y] == true)
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
+                    }
+                    else
+                    {
+                        e.Graphics.FillRectangle(backBrush, cellRect);
                     }
 
 
@@ -651,7 +657,7 @@ namespace AlvarezGabriel_GOL
         private void backColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
-             = colorDialog1.Color;
+            backColor = colorDialog1.Color;
             graphicsPanel1.Invalidate();
         }
 
