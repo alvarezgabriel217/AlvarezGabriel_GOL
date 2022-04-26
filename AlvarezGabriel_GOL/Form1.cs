@@ -15,10 +15,10 @@ namespace AlvarezGabriel_GOL
     public partial class Form1 : Form
     {
         // Width
-        static int width = 10;
+        static int width = Properties.Settings.Default.Width;
 
         // Height
-        static int height = 10;
+        static int height = Properties.Settings.Default.Height;
 
         // Time in milliseconds
         static int time = 100;
@@ -60,9 +60,6 @@ namespace AlvarezGabriel_GOL
         public Form1()
         {
             InitializeComponent();
-
-            width = Properties.Settings.Default.Width;
-            height = Properties.Settings.Default.Height;
             backColor = Properties.Settings.Default.BackColor;
             cellColor = Properties.Settings.Default.CellColor;
             gridColor = Properties.Settings.Default.GridColor;
@@ -763,12 +760,15 @@ namespace AlvarezGabriel_GOL
 
         private void toToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //ToGeneration to = new ToGeneration();
-            //if (DialogResult.OK == to.ShowDialog())
-            //{
-
-
-            //}
+            ToGeneration to = new ToGeneration();
+            if (DialogResult.OK == to.ShowDialog())
+            {
+                timer.Enabled = false;
+                for(int i = generations; i < to.generations; i++)
+                {
+                    NextGeneration();
+                }
+            }
         }
 
         private void currentSeedToolStripMenuItem_Click(object sender, EventArgs e)
