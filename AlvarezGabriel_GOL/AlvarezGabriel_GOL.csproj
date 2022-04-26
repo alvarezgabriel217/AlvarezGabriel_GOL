@@ -69,6 +69,12 @@
     <Compile Include="Randomize.Designer.cs">
       <DependentUpon>Randomize.cs</DependentUpon>
     </Compile>
+    <Compile Include="ToGeneration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ToGeneration.Designer.cs">
+      <DependentUpon>ToGeneration.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
@@ -87,6 +93,9 @@
     </Compile>
     <EmbeddedResource Include="Randomize.resx">
       <DependentUpon>Randomize.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ToGeneration.resx">
+      <DependentUpon>ToGeneration.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

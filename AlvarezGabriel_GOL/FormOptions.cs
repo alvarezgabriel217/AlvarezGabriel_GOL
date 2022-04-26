@@ -12,12 +12,17 @@ namespace AlvarezGabriel_GOL
 {
     public partial class FormOptions : Form
     {
-        static int gridWidth = 10;
-        static int gridHeight = 10;
-        static int time = 100;
+        static int gridWidth;
+        static int gridHeight;
+        static int time;
         public FormOptions()
         {
             InitializeComponent();
+
+            Time = Properties.Settings.Default.Interval;
+            GridWidth = Properties.Settings.Default.Width;
+            GridHeight = Properties.Settings.Default.Height;
+
             numericUpDown1.Value = Time;
             numericUpDown2.Value = GridWidth;
             numericUpDown3.Value = GridHeight;

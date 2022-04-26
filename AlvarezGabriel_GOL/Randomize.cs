@@ -17,16 +17,15 @@ namespace AlvarezGabriel_GOL
         {
             InitializeComponent();
             numericUpDown1.Maximum = int.MaxValue;
-            numericUpDown1.Minimum = 0;
-            Random random = new Random();
-            value = random.Next(0, int.MaxValue);
+            numericUpDown1.Minimum = int.MinValue;
+            value = Properties.Settings.Default.Seed;
             numericUpDown1.Value = value;
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Random random = new Random();
-            value = random.Next(0, int.MaxValue);
+            value = random.Next(int.MinValue, int.MaxValue);
             numericUpDown1.Value = value;
         }
 

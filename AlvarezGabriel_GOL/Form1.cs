@@ -45,50 +45,38 @@ namespace AlvarezGabriel_GOL
         Timer timer = new Timer();
 
         // Generation count
-        int generations = 0;
+        static int generations = 0;
+
+        int aliveCells = 0;
+
+        int seed = 0;
+
+        public int Generations
+        {
+            get { return generations; }
+            set { generations = value; }
+        }
 
         public Form1()
         {
             InitializeComponent();
 
+            width = Properties.Settings.Default.Width;
+            height = Properties.Settings.Default.Height;
+            backColor = Properties.Settings.Default.BackColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            width = Properties.Settings.Default.Width;
+            seed = Properties.Settings.Default.Seed;
+
             // Setup the timer
             timer.Interval = time; // milliseconds
             timer.Tick += Timer_Tick;
             timer.Enabled = false; // start timer running
-        }
 
-        // Generates a random universe from time
-        public void RandomUniverseTime()
-        {
-            Random rng = new Random();
-            for (int y = 0; y < universe.GetLength(1); y++)
-            {
-                for (int x = 0; x < universe.GetLength(0); x++)
-                {
-                    if (rng.Next(0, 3) == 0)
-                    {
+            IntervalLabel.Text = "Interval: " + time.ToString();
 
-                        universe[x, y] = true;
-                    }
-                }
-            }
-        }
-
-        // Generates a random universe from a seed
-        public void RandomUniverseSeed()
-        {
-            Random rng = new Random();
-            for (int y = 0; y < universe.GetLength(1); y++)
-            {
-                for (int x = 0; x < universe.GetLength(0); x++)
-                {
-                    if (rng.Next(0, 3) == 0)
-                    {
-
-                        universe[x, y] = true;
-                    }
-                }
-            }
+            SeedLabel.Text = "Seed: " + seed.ToString();
         }
 
         // Calculate the next generation of cells
@@ -156,7 +144,7 @@ namespace AlvarezGabriel_GOL
             scratchPad = temp;
 
             // Update status strip generations
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            toolStripStatusLabelGenerations.Text = "Generations: " + generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
@@ -277,6 +265,16 @@ namespace AlvarezGabriel_GOL
 
             Brush backBrush = new SolidBrush(backColor);
 
+            Brush hudBrush = new SolidBrush(Color.Red);
+
+            aliveCells = 0;
+
+            Font hudFont = new Font("Arial", 12f);
+            StringFormat hudFormat = new StringFormat();
+            hudFormat.LineAlignment = StringAlignment.Far;
+
+
+
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
             {
@@ -297,6 +295,7 @@ namespace AlvarezGabriel_GOL
                     if (universe[x, y] == true)
                     {
                         e.Graphics.FillRectangle(cellBrush, cellRect);
+                        aliveCells++;
                     }
                     else
                     {
@@ -385,10 +384,32 @@ namespace AlvarezGabriel_GOL
                 }
             }
 
+            RectangleF cellRect2 = Rectangle.Empty;
+
+            cellRect2.Width = graphicsPanel1.ClientSize.Width;
+            cellRect2.Height = graphicsPanel1.ClientSize.Height;
+
+
+            if (hUDToolStripMenuItem.Checked)
+            {
+                if (boundary)
+                {
+                    e.Graphics.DrawString("Generations: " + generations + "\n" + "Cell Count: " + aliveCells + '\n' + "Boundary: Finite" + "\n" + "Universe Size: {Width: " + width + ", height: " + height + "}", hudFont, hudBrush, cellRect2, hudFormat);
+                }
+                else
+                {
+                    e.Graphics.DrawString("Generations: " + generations + "\n" + "Cell Count: " + aliveCells + '\n' + "Boundary: Toroidal" + "\n" + "Universe Size: {Width: " + width + ", height: " + height + "}", hudFont, hudBrush, cellRect2, hudFormat);
+                }
+            }
+
+            AliveLabel.Text = "Alive: " + aliveCells.ToString();
+
             // Cleaning up pens and brushes
             gridPen.Dispose();
             cellBrush.Dispose();
             neighborBrush.Dispose();
+            backBrush.Dispose();
+            hudBrush.Dispose();
         }
 
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
@@ -422,11 +443,19 @@ namespace AlvarezGabriel_GOL
         private void Start_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
+            Start.Enabled = false;
+            startToolStripMenuItem.Enabled = false;
+            Pause.Enabled = true;
+            pauseToolStripMenuItem.Enabled = true;
         }
 
         private void Pause_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
+            Pause.Enabled = false;
+            pauseToolStripMenuItem.Enabled = false;
+            Start.Enabled = true;
+            startToolStripMenuItem.Enabled = true;
         }
 
         private void Next_Click(object sender, EventArgs e)
@@ -445,7 +474,7 @@ namespace AlvarezGabriel_GOL
                 }
             }
             generations = 0;
-            toolStripStatusLabelGenerations.Text = "Generations = " + generations.ToString();
+            toolStripStatusLabelGenerations.Text = "Generations: " + generations.ToString();
             graphicsPanel1.Invalidate();
         }
 
@@ -595,10 +624,10 @@ namespace AlvarezGabriel_GOL
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Randomize random = new Randomize();
-            random.ShowDialog();
-            if (random.DialogResult == DialogResult.OK)
+            if (DialogResult.OK == random.ShowDialog())
             {
-                Random rng = new Random(random.value);
+                seed = random.value;
+                Random rng = new Random(seed);
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
                     for (int x = 0; x < universe.GetLength(0); x++)
@@ -611,6 +640,7 @@ namespace AlvarezGabriel_GOL
                         }
                     }
                 }
+                SeedLabel.Text = "Seed: " + seed.ToString();
                 graphicsPanel1.Invalidate();
             }
         }
@@ -651,6 +681,7 @@ namespace AlvarezGabriel_GOL
                     graphicsPanel1.Invalidate();
                 }
                 timer.Interval = time;
+                IntervalLabel.Text = "Interval: " + time.ToString();
             }
         }
 
@@ -681,11 +712,13 @@ namespace AlvarezGabriel_GOL
             {
                 grid = false;
                 gridToolStripMenuItem.Checked = false;
+                gridToolStripMenuItem1.Checked = false;
             }
             else
             {
                 grid = true;
                 gridToolStripMenuItem.Checked = true;
+                gridToolStripMenuItem1.Checked = true;
 
             }
             graphicsPanel1.Invalidate();
@@ -693,14 +726,16 @@ namespace AlvarezGabriel_GOL
 
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(neighborCountToolStripMenuItem.Checked ==  true)
+            if (neighborCountToolStripMenuItem.Checked == true)
             {
                 neighborCountToolStripMenuItem.Checked = false;
+                neighborCountToolStripMenuItem1.Checked = false;
                 neighborCount = false;
             }
             else
             {
                 neighborCountToolStripMenuItem.Checked = true;
+                neighborCountToolStripMenuItem1.Checked = true;
                 neighborCount = true;
             }
             graphicsPanel1.Invalidate();
@@ -710,7 +745,9 @@ namespace AlvarezGabriel_GOL
         {
             boundary = false;
             toroidalToolStripMenuItem.Checked = true;
+            toroidalToolStripMenuItem1.Checked = true;
             finiteToolStripMenuItem.Checked = false;
+            finiteToolStripMenuItem1.Checked = false;
             graphicsPanel1.Invalidate();
         }
 
@@ -718,7 +755,107 @@ namespace AlvarezGabriel_GOL
         {
             boundary = true;
             toroidalToolStripMenuItem.Checked = false;
+            toroidalToolStripMenuItem1.Checked = false;
             finiteToolStripMenuItem.Checked = true;
+            finiteToolStripMenuItem1.Checked = true;
+            graphicsPanel1.Invalidate();
+        }
+
+        private void toToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //ToGeneration to = new ToGeneration();
+            //if (DialogResult.OK == to.ShowDialog())
+            //{
+
+
+            //}
+        }
+
+        private void currentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random rng = new Random(seed);
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                    if (rng.Next(0, 3) == 0)
+                    {
+
+                        universe[x, y] = true;
+                    }
+                }
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Properties.Settings.Default.BackColor = backColor;
+            Properties.Settings.Default.CellColor = cellColor;
+            Properties.Settings.Default.GridColor = gridColor;
+            Properties.Settings.Default.Seed = seed;
+            Properties.Settings.Default.Width = width;
+            Properties.Settings.Default.Height = height;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void resetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reset();
+            width = Properties.Settings.Default.Width;
+            height = Properties.Settings.Default.Height;
+            backColor = Properties.Settings.Default.BackColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            width = Properties.Settings.Default.Width;
+            seed = Properties.Settings.Default.Seed;
+            if (width != universe.GetLength(0) || height != universe.GetLength(1))
+            {
+                universe = new bool[width, height];
+                scratchPad = new bool[width, height];
+                graphicsPanel1.Invalidate();
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.Reload();
+            width = Properties.Settings.Default.Width;
+            height = Properties.Settings.Default.Height;
+            backColor = Properties.Settings.Default.BackColor;
+            cellColor = Properties.Settings.Default.CellColor;
+            gridColor = Properties.Settings.Default.GridColor;
+            width = Properties.Settings.Default.Width;
+            seed = Properties.Settings.Default.Seed;
+            if (width != universe.GetLength(0) || height != universe.GetLength(1))
+            {
+                universe = new bool[width, height];
+                scratchPad = new bool[width, height];
+                graphicsPanel1.Invalidate();
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (hUDToolStripMenuItem.Checked)
+            {
+                hUDToolStripMenuItem.Checked = false;
+                hUDToolStripMenuItem1.Checked = false;
+            }
+            else
+            {
+                hUDToolStripMenuItem.Checked = true;
+                hUDToolStripMenuItem1.Checked = true;
+            }
             graphicsPanel1.Invalidate();
         }
     }
