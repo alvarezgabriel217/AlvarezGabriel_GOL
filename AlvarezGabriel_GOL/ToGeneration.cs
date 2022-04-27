@@ -12,18 +12,25 @@ namespace AlvarezGabriel_GOL
 {
     public partial class ToGeneration : Form
     {
-        public int generations;
+        // St
+        int generations;
         public ToGeneration()
         {
             InitializeComponent();
             Form1 form = new Form1();
-            generations = form.Generations;
-            numericUpDown1.Value = generations;
+            Generations = form.Generations;
+            numericUpDown1.Value = Generations;
+        }
+
+        public int Generations 
+        {
+            get { return generations; }
+            set { generations = value; } 
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            generations = (int)numericUpDown1.Value;
+            Generations = (int)numericUpDown1.Value;
         }
     }
 }

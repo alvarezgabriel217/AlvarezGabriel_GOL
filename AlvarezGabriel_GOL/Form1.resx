@@ -210,6 +210,17 @@
         AElFTkSuQmCC
 </value>
   </data>
+  <data name="Start.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAEVSURBVChTY0hYmPCsdktrR97aPJ36VfVsDPiA9mTt/2Hb
+        An/WH6y8VretenrRrGw1qBQmEGkX+S88T+i/ygql/6F7/f837Kt9U7W2or1obpENVAkCwBSDsPQiyf/W
+        66z+J+9K+FSzv+pm49rmlso5lTpQpaiKkbHqMrX/sbtj/lfuLv9ct7NuYd6qPBucikFYfL74f40Vmv99
+        1vj+D5setgWvYuFJwv8lm6T+63cYHwufEB6KqXi20H+xiWL/xXrE3iiVqa4yqbELypqSxYPpZqBC0S7R
+        n5pVmpd1KnQy/Dr9eMGKYECkReS/6HSR/xK9Ei/lGxX2GtUY+WAoggGpEun/Sg1Km3WqdLxN20yFocJY
+        AAMDAJA+mqYy4MbRAAAAAElFTkSuQmCC
+</value>
+  </data>
   <data name="Pause.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
@@ -222,6 +233,17 @@
         YBoEiZSB6pKdk2BBQTpQiEOWaxDVuQZ6TayXU9lBdrt5I6XD2O4+TikJ9q4LEqkO4LN0GLBAwgelAwOG
         zgE68q06Ac1NDTD3boQ6yNYp6Mbq7oWdiWgHqllWHNXxe3H6MJffjFAIFBghVuOfKIo/q/6+Od+2dy4A
         AAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="Next.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAAsAAAALCAYAAACprHcmAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
+        YQUAAAAJcEhZcwAAFiUAABYlAUlSJPAAAAEcSURBVChTdZE/S8NQFMWzOVSbev8kqVWR8FrNN/GDKDSB
+        WCpRcbGIoE5VHERBFJQi6qDddLFTv4xL12zXlz+1JdQDZ3n8znmXe42i1KFiFdX7q621rgo35/Ln2XJC
+        h6nNAzrCeGWn0VahmgQghHICjA2+42GEw+qTKdYVxBwt3f0F3H33lfZ0U+4EpGMa2T1T7BdT4AxiCqzs
+        B++8LrWvkix/l6T2OS/Oe1ms54rw46LgPaSGDsTY5K7hnTak+rEg9psp3KsIPmRA6hsUvEChAxZo0o+x
+        cbIulLSMoVsNXGtfaqjDQpEGA8qa3d3CzC1rSL410nNKYt04mXnmNgIdyEEMeLKNopIA+TyA7anG/5TC
+        Afdxi/UFp0HD+AWT3H2aRcKKgwAAAABJRU5ErkJggg==
 </value>
   </data>
   <metadata name="statusStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">

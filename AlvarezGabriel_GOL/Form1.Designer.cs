@@ -117,7 +117,6 @@ namespace AlvarezGabriel_GOL
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 2, 0, 2);
             this.menuStrip1.Size = new System.Drawing.Size(860, 33);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
@@ -432,7 +431,7 @@ namespace AlvarezGabriel_GOL
             // 
             // toolStrip1
             // 
-            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(24, 24);
+            this.toolStrip1.ImageScalingSize = new System.Drawing.Size(12, 12);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripButton,
             this.openToolStripButton,
@@ -444,10 +443,9 @@ namespace AlvarezGabriel_GOL
             this.toolStrip1.Location = new System.Drawing.Point(0, 33);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(860, 33);
+            this.toolStrip1.Size = new System.Drawing.Size(860, 28);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
-            this.toolStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.toolStrip1_ItemClicked);
             // 
             // newToolStripButton
             // 
@@ -456,7 +454,7 @@ namespace AlvarezGabriel_GOL
             this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(34, 28);
+            this.newToolStripButton.Size = new System.Drawing.Size(34, 23);
             this.newToolStripButton.Text = "&New";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -466,7 +464,7 @@ namespace AlvarezGabriel_GOL
             this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(34, 28);
+            this.openToolStripButton.Size = new System.Drawing.Size(34, 23);
             this.openToolStripButton.Text = "&Open";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -476,22 +474,22 @@ namespace AlvarezGabriel_GOL
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(34, 28);
+            this.saveToolStripButton.Size = new System.Drawing.Size(34, 23);
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 33);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
             // 
             // Start
             // 
             this.Start.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Start.Image = global::AlvarezGabriel_GOL.Properties.Resources.Start;
+            this.Start.Image = ((System.Drawing.Image)(resources.GetObject("Start.Image")));
             this.Start.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(34, 28);
+            this.Start.Size = new System.Drawing.Size(34, 23);
             this.Start.Text = "toolStripButton1";
             this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
@@ -502,17 +500,17 @@ namespace AlvarezGabriel_GOL
             this.Pause.Image = ((System.Drawing.Image)(resources.GetObject("Pause.Image")));
             this.Pause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Pause.Name = "Pause";
-            this.Pause.Size = new System.Drawing.Size(34, 28);
+            this.Pause.Size = new System.Drawing.Size(34, 23);
             this.Pause.Text = "toolStripButton1";
             this.Pause.Click += new System.EventHandler(this.Pause_Click);
             // 
             // Next
             // 
             this.Next.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.Next.Image = global::AlvarezGabriel_GOL.Properties.Resources.Next;
+            this.Next.Image = ((System.Drawing.Image)(resources.GetObject("Next.Image")));
             this.Next.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Next.Name = "Next";
-            this.Next.Size = new System.Drawing.Size(34, 28);
+            this.Next.Size = new System.Drawing.Size(34, 23);
             this.Next.Text = "toolStripButton1";
             this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
@@ -562,7 +560,7 @@ namespace AlvarezGabriel_GOL
             this.viewToolStripMenuItem1,
             this.colorToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(241, 101);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(128, 68);
             // 
             // viewToolStripMenuItem1
             // 
@@ -574,7 +572,7 @@ namespace AlvarezGabriel_GOL
             this.toroidalToolStripMenuItem1,
             this.finiteToolStripMenuItem1});
             this.viewToolStripMenuItem1.Name = "viewToolStripMenuItem1";
-            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(240, 32);
+            this.viewToolStripMenuItem1.Size = new System.Drawing.Size(127, 32);
             this.viewToolStripMenuItem1.Text = "View";
             // 
             // hUDToolStripMenuItem1
@@ -582,7 +580,7 @@ namespace AlvarezGabriel_GOL
             this.hUDToolStripMenuItem1.Checked = true;
             this.hUDToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.hUDToolStripMenuItem1.Name = "hUDToolStripMenuItem1";
-            this.hUDToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.hUDToolStripMenuItem1.Size = new System.Drawing.Size(242, 34);
             this.hUDToolStripMenuItem1.Text = "HUD";
             this.hUDToolStripMenuItem1.Click += new System.EventHandler(this.hUDToolStripMenuItem_Click);
             // 
@@ -591,7 +589,7 @@ namespace AlvarezGabriel_GOL
             this.neighborCountToolStripMenuItem1.Checked = true;
             this.neighborCountToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.neighborCountToolStripMenuItem1.Name = "neighborCountToolStripMenuItem1";
-            this.neighborCountToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.neighborCountToolStripMenuItem1.Size = new System.Drawing.Size(242, 34);
             this.neighborCountToolStripMenuItem1.Text = "Neighbor Count";
             this.neighborCountToolStripMenuItem1.Click += new System.EventHandler(this.neighborCountToolStripMenuItem_Click);
             // 
@@ -600,28 +598,28 @@ namespace AlvarezGabriel_GOL
             this.gridToolStripMenuItem1.Checked = true;
             this.gridToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.gridToolStripMenuItem1.Name = "gridToolStripMenuItem1";
-            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.gridToolStripMenuItem1.Size = new System.Drawing.Size(242, 34);
             this.gridToolStripMenuItem1.Text = "Grid";
             this.gridToolStripMenuItem1.Click += new System.EventHandler(this.gridToolStripMenuItem_Click);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(267, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(239, 6);
             // 
             // toroidalToolStripMenuItem1
             // 
             this.toroidalToolStripMenuItem1.Checked = true;
             this.toroidalToolStripMenuItem1.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toroidalToolStripMenuItem1.Name = "toroidalToolStripMenuItem1";
-            this.toroidalToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.toroidalToolStripMenuItem1.Size = new System.Drawing.Size(242, 34);
             this.toroidalToolStripMenuItem1.Text = "Toroidal";
             this.toroidalToolStripMenuItem1.Click += new System.EventHandler(this.toroidalToolStripMenuItem_Click);
             // 
             // finiteToolStripMenuItem1
             // 
             this.finiteToolStripMenuItem1.Name = "finiteToolStripMenuItem1";
-            this.finiteToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.finiteToolStripMenuItem1.Size = new System.Drawing.Size(242, 34);
             this.finiteToolStripMenuItem1.Text = "Finite";
             this.finiteToolStripMenuItem1.Click += new System.EventHandler(this.finiteToolStripMenuItem_Click);
             // 
@@ -632,7 +630,7 @@ namespace AlvarezGabriel_GOL
             this.cellColorToolStripMenuItem1,
             this.gridColorToolStripMenuItem});
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
-            this.colorToolStripMenuItem.Size = new System.Drawing.Size(240, 32);
+            this.colorToolStripMenuItem.Size = new System.Drawing.Size(127, 32);
             this.colorToolStripMenuItem.Text = "Color";
             // 
             // backColorToolStripMenuItem1
@@ -661,10 +659,10 @@ namespace AlvarezGabriel_GOL
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.graphicsPanel1.ContextMenuStrip = this.contextMenuStrip1;
             this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsPanel1.Location = new System.Drawing.Point(0, 66);
+            this.graphicsPanel1.Location = new System.Drawing.Point(0, 61);
             this.graphicsPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(860, 433);
+            this.graphicsPanel1.Size = new System.Drawing.Size(860, 438);
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);

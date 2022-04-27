@@ -21,7 +21,7 @@ namespace AlvarezGabriel_GOL
         static int height = Properties.Settings.Default.Height;
 
         // Time in milliseconds
-        static int time = 100;
+        static int time;
 
         // Universe boundary behaviour
         bool boundary = false;
@@ -32,8 +32,10 @@ namespace AlvarezGabriel_GOL
         // The Scratch pad array
         bool[,] scratchPad = new bool[width, height];
 
+        // Determines whether the grid is shown or not
         bool grid = true;
-
+        
+        // Determines whether the neighbors of each cell are shown or not
         bool neighborCount = true;
 
         // Drawing colors
@@ -47,8 +49,10 @@ namespace AlvarezGabriel_GOL
         // Generation count
         static int generations = 0;
 
+        // Number of living cells
         int aliveCells = 0;
 
+        // Current seed
         int seed = 0;
 
         public int Generations
@@ -60,10 +64,11 @@ namespace AlvarezGabriel_GOL
         public Form1()
         {
             InitializeComponent();
+            // Sets the values of the member fields to the values of the property settings
             backColor = Properties.Settings.Default.BackColor;
             cellColor = Properties.Settings.Default.CellColor;
             gridColor = Properties.Settings.Default.GridColor;
-            width = Properties.Settings.Default.Width;
+            time = Properties.Settings.Default.Interval;
             seed = Properties.Settings.Default.Seed;
 
             // Setup the timer
@@ -83,6 +88,7 @@ namespace AlvarezGabriel_GOL
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
                 {
+                    // If boundary = true, the universe is finite
                     if (boundary)
                     {
                         if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
@@ -106,6 +112,7 @@ namespace AlvarezGabriel_GOL
                             scratchPad[x, y] = true;
                         }
                     }
+                    // Else, the universe is toroidal
                     else
                     {
                         if (CountNeighborsToroidal(x, y) < 2 && universe[x, y] == true)
@@ -145,6 +152,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Counts the neighbors of each cell on a finite universe
         private int CountNeighborsFinite(int x, int y)
         {
             int count = 0;
@@ -188,6 +196,7 @@ namespace AlvarezGabriel_GOL
             return count;
         }
 
+        // Counts the neighbors of each cell on a toroidal universe
         private int CountNeighborsToroidal(int x, int y)
         {
             int count = 0;
@@ -240,14 +249,11 @@ namespace AlvarezGabriel_GOL
         private void graphicsPanel1_Paint(object sender, PaintEventArgs e)
         {
             // Calculate the width and height of each cell in pixels
-            // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
 
-            //int cellWidth = graphicsPanel1.ClientSize.Width / universe.GetLength(0);
+            // CELL WIDTH = WINDOW WIDTH / NUMBER OF CELLS IN X
             float cellWidth = (float)graphicsPanel1.ClientSize.Width / universe.GetLength(0);
 
             // CELL HEIGHT = WINDOW HEIGHT / NUMBER OF CELLS IN Y
-
-            //int cellHeight = graphicsPanel1.ClientSize.Height / universe.GetLength(1);
             float cellHeight = (float)graphicsPanel1.ClientSize.Height / universe.GetLength(1);
 
 
@@ -257,20 +263,23 @@ namespace AlvarezGabriel_GOL
             // A Brush for filling living cells interiors (color)
             Brush cellBrush = new SolidBrush(cellColor);
 
+            // A brush for filling dead cells interiors (color)
+            Brush backBrush = new SolidBrush(backColor);
+
             // A brush for filling number of neighbors of each cell (color)
             Brush neighborBrush = new SolidBrush(Color.Red);
 
-            Brush backBrush = new SolidBrush(backColor);
-
+            // A brush for filling the color of the HUD
             Brush hudBrush = new SolidBrush(Color.Red);
 
-            aliveCells = 0;
 
+
+            // Sets the font and format of the HUD
             Font hudFont = new Font("Arial", 12f);
             StringFormat hudFormat = new StringFormat();
             hudFormat.LineAlignment = StringAlignment.Far;
 
-
+            aliveCells = 0;
 
             // Iterate through the universe in the y, top to bottom
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -280,7 +289,6 @@ namespace AlvarezGabriel_GOL
                 {
                     // A rectangle to represent each cell in pixels
 
-                    //Rectangle cellRect = Rectangle.Empty;
                     RectangleF cellRect = Rectangle.Empty;
 
                     cellRect.X = x * cellWidth;
@@ -294,6 +302,7 @@ namespace AlvarezGabriel_GOL
                         e.Graphics.FillRectangle(cellBrush, cellRect);
                         aliveCells++;
                     }
+                    // Fill the cell with another brush if dead
                     else
                     {
                         e.Graphics.FillRectangle(backBrush, cellRect);
@@ -307,18 +316,16 @@ namespace AlvarezGabriel_GOL
                     }
 
 
-                    // Font for the number of neighbors of each cell
+                    // Font and format for the number of neighbors of each cell
                     Font font = new Font("Arial", 10f);
-                    // Format for the number of neighbors of each cell
                     StringFormat stringFormat = new StringFormat();
-
-
                     stringFormat.Alignment = StringAlignment.Center;
                     stringFormat.LineAlignment = StringAlignment.Center;
 
+                    // If neighborCount == true, it means that the neighbor count is enabled
                     if (neighborCount)
                     {
-                        // Change color of brush based on the rules
+                        // Change color of brush based on the rules and the universe boundary type
                         if (boundary)
                         {
                             if (CountNeighborsFinite(x, y) < 2 && universe[x, y] == true)
@@ -381,12 +388,12 @@ namespace AlvarezGabriel_GOL
                 }
             }
 
+            // Creates a second rectangle for the HUD
             RectangleF cellRect2 = Rectangle.Empty;
-
             cellRect2.Width = graphicsPanel1.ClientSize.Width;
             cellRect2.Height = graphicsPanel1.ClientSize.Height;
 
-
+            // If the HUD option is enabled, draws the HUD
             if (hUDToolStripMenuItem.Checked)
             {
                 if (boundary)
@@ -398,8 +405,8 @@ namespace AlvarezGabriel_GOL
                     e.Graphics.DrawString("Generations: " + generations + "\n" + "Cell Count: " + aliveCells + '\n' + "Boundary: Toroidal" + "\n" + "Universe Size: {Width: " + width + ", height: " + height + "}", hudFont, hudBrush, cellRect2, hudFormat);
                 }
             }
-
             AliveLabel.Text = "Alive: " + aliveCells.ToString();
+            SeedLabel.Text = "Seed: " + seed.ToString();
 
             // Cleaning up pens and brushes
             gridPen.Dispose();
@@ -409,6 +416,7 @@ namespace AlvarezGabriel_GOL
             hudBrush.Dispose();
         }
 
+        // Controls what happens when the user clicks a cell whether its alive or dead
         private void graphicsPanel1_MouseClick(object sender, MouseEventArgs e)
         {
             // If the left mouse button was clicked
@@ -432,11 +440,7 @@ namespace AlvarezGabriel_GOL
             }
         }
 
-        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
+        // Starts the timer, enables the pause button and disables the start button
         private void Start_Click(object sender, EventArgs e)
         {
             timer.Enabled = true;
@@ -446,6 +450,7 @@ namespace AlvarezGabriel_GOL
             pauseToolStripMenuItem.Enabled = true;
         }
 
+        // Pauses the timer, enables the start button and disables the pause button 
         private void Pause_Click(object sender, EventArgs e)
         {
             timer.Enabled = false;
@@ -455,11 +460,13 @@ namespace AlvarezGabriel_GOL
             startToolStripMenuItem.Enabled = true;
         }
 
+        // Increases the generation count by 1
         private void Next_Click(object sender, EventArgs e)
         {
             NextGeneration();
         }
 
+        // Clears the universe
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             for (int y = 0; y < universe.GetLength(1); y++)
@@ -475,6 +482,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        //Saves the current universe to a text file
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dlg = new SaveFileDialog();
@@ -526,6 +534,7 @@ namespace AlvarezGabriel_GOL
             }
         }
 
+        // Opens a saved universe
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFileDialog dlg = new OpenFileDialog();
@@ -617,13 +626,13 @@ namespace AlvarezGabriel_GOL
             }
         }
 
-        // Randomizes the cells based on a seed entered by the user or randomly generated.
+        // Randomizes the cells based on a seed entered by the user or randomly generated seed
         private void fromSeedToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Randomize random = new Randomize();
             if (DialogResult.OK == random.ShowDialog())
             {
-                seed = random.value;
+                seed = random.Seed;
                 Random rng = new Random(seed);
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {
@@ -642,10 +651,31 @@ namespace AlvarezGabriel_GOL
             }
         }
 
-        // Randomizes the cells based on time.
+        // Randomizes the cells based on time
         private void fromTimeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Random rng = new Random();
+            seed = DateTime.Now.Millisecond;
+            Random rng = new Random(seed);
+            for (int y = 0; y < universe.GetLength(1); y++)
+            {
+                for (int x = 0; x < universe.GetLength(0); x++)
+                {
+                    universe[x, y] = false;
+                    if (rng.Next(0, 3) == 0)
+                    {
+
+                        universe[x, y] = true;
+                    }
+                }
+            }
+            SeedLabel.Text = "Seed: " + seed.ToString();
+            graphicsPanel1.Invalidate();
+        }
+
+        // Randomizes the cells based on the current seed
+        private void currentSeedToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Random rng = new Random(seed);
             for (int y = 0; y < universe.GetLength(1); y++)
             {
                 for (int x = 0; x < universe.GetLength(0); x++)
@@ -661,6 +691,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Opens the options menu which allows the user to change the height and width of the universe and the interval of the timer 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FormOptions options = new FormOptions();
@@ -682,6 +713,7 @@ namespace AlvarezGabriel_GOL
             }
         }
 
+        // Allows the user to change the background color of the universe (Color of dead cells)
         private void backColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
@@ -689,6 +721,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Allows the user to change the color of living cells
         private void cellColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
@@ -696,6 +729,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Allows the user to change the color of the grid
         private void grtidColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             colorDialog1.ShowDialog();
@@ -703,6 +737,23 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Enables or disables the HUD
+        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (hUDToolStripMenuItem.Checked)
+            {
+                hUDToolStripMenuItem.Checked = false;
+                hUDToolStripMenuItem1.Checked = false;
+            }
+            else
+            {
+                hUDToolStripMenuItem.Checked = true;
+                hUDToolStripMenuItem1.Checked = true;
+            }
+            graphicsPanel1.Invalidate();
+        }
+
+        // Enables or disables the grid
         private void gridToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (grid)
@@ -721,6 +772,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Enables or disables the neighbor count
         private void neighborCountToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (neighborCountToolStripMenuItem.Checked == true)
@@ -738,6 +790,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Changes the boundary type of the universe to toroidal
         private void toroidalToolStripMenuItem_Click(object sender, EventArgs e)
         {
             boundary = false;
@@ -748,6 +801,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Changes the boundary type of the universe to finite
         private void finiteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             boundary = true;
@@ -758,37 +812,21 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Allows the user to go to a specific generation (must be a number greater than the current generation)
         private void toToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ToGeneration to = new ToGeneration();
             if (DialogResult.OK == to.ShowDialog())
             {
                 timer.Enabled = false;
-                for(int i = generations; i < to.generations; i++)
+                for(int i = generations; i < to.Generations; i++)
                 {
                     NextGeneration();
                 }
             }
         }
 
-        private void currentSeedToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Random rng = new Random(seed);
-            for (int y = 0; y < universe.GetLength(1); y++)
-            {
-                for (int x = 0; x < universe.GetLength(0); x++)
-                {
-                    universe[x, y] = false;
-                    if (rng.Next(0, 3) == 0)
-                    {
-
-                        universe[x, y] = true;
-                    }
-                }
-            }
-            graphicsPanel1.Invalidate();
-        }
-
+        // Saves the settings of the current universe whenever the application is closed
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             Properties.Settings.Default.BackColor = backColor;
@@ -801,11 +839,13 @@ namespace AlvarezGabriel_GOL
             Properties.Settings.Default.Save();
         }
 
+        // Closes the application whenever the exit button is clicked
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
+        // Resets the universe's settings to the default settings
         private void resetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reset();
@@ -825,6 +865,7 @@ namespace AlvarezGabriel_GOL
             graphicsPanel1.Invalidate();
         }
 
+        // Reloads the latest settings entered by the user
         private void reloadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.Reload();
@@ -840,21 +881,6 @@ namespace AlvarezGabriel_GOL
                 universe = new bool[width, height];
                 scratchPad = new bool[width, height];
                 graphicsPanel1.Invalidate();
-            }
-            graphicsPanel1.Invalidate();
-        }
-
-        private void hUDToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (hUDToolStripMenuItem.Checked)
-            {
-                hUDToolStripMenuItem.Checked = false;
-                hUDToolStripMenuItem1.Checked = false;
-            }
-            else
-            {
-                hUDToolStripMenuItem.Checked = true;
-                hUDToolStripMenuItem1.Checked = true;
             }
             graphicsPanel1.Invalidate();
         }

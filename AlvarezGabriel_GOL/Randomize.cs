@@ -12,26 +12,32 @@ namespace AlvarezGabriel_GOL
 {
     public partial class Randomize : Form
     {
-        public int value;
+        int seed;
+
         public Randomize()
         {
             InitializeComponent();
             numericUpDown1.Maximum = int.MaxValue;
             numericUpDown1.Minimum = int.MinValue;
-            value = Properties.Settings.Default.Seed;
-            numericUpDown1.Value = value;
+            Seed = Properties.Settings.Default.Seed;
+            numericUpDown1.Value = Seed;
+        }
+        public int Seed
+        {
+            get { return seed; }
+            set { seed = value; }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             Random random = new Random();
-            value = random.Next(int.MinValue, int.MaxValue);
-            numericUpDown1.Value = value;
+            Seed = random.Next(int.MinValue, int.MaxValue);
+            numericUpDown1.Value = seed;
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
         {
-            value = (int)numericUpDown1.Value;
+            seed = (int)numericUpDown1.Value;
         }
     }
 }
