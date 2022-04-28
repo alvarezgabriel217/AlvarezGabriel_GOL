@@ -494,12 +494,6 @@ namespace AlvarezGabriel_GOL
             {
                 StreamWriter writer = new StreamWriter(dlg.FileName);
 
-                // Write any comments you want to include first.
-                // Prefix all comment strings with an exclamation point.
-                // Use WriteLine to write the strings to the file. 
-                // It appends a CRLF for you.
-                //writer.WriteLine("!This is my comment.");
-
                 // Iterate through the universe one row at a time.
                 for (int y = 0; y < universe.GetLength(1); y++)
                 {

@@ -35,7 +35,6 @@ namespace AlvarezGabriel_GOL
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -126,7 +125,6 @@ namespace AlvarezGabriel_GOL
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newToolStripMenuItem,
             this.openToolStripMenuItem,
-            this.importToolStripMenuItem,
             this.toolStripSeparator,
             this.saveToolStripMenuItem,
             this.toolStripSeparator1,
@@ -141,7 +139,7 @@ namespace AlvarezGabriel_GOL
             this.newToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripMenuItem.Name = "newToolStripMenuItem";
             this.newToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.newToolStripMenuItem.Text = "&New";
             this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -151,20 +149,14 @@ namespace AlvarezGabriel_GOL
             this.openToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.openToolStripMenuItem.Text = "&Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
-            this.importToolStripMenuItem.Text = "Import";
             // 
             // toolStripSeparator
             // 
             this.toolStripSeparator.Name = "toolStripSeparator";
-            this.toolStripSeparator.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator.Size = new System.Drawing.Size(267, 6);
             // 
             // saveToolStripMenuItem
             // 
@@ -172,19 +164,19 @@ namespace AlvarezGabriel_GOL
             this.saveToolStripMenuItem.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.saveToolStripMenuItem.Text = "&Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(220, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(267, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(223, 34);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.exitToolStripMenuItem.Text = "E&xit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -263,7 +255,8 @@ namespace AlvarezGabriel_GOL
             // startToolStripMenuItem
             // 
             this.startToolStripMenuItem.Name = "startToolStripMenuItem";
-            this.startToolStripMenuItem.Size = new System.Drawing.Size(159, 34);
+            this.startToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
+            this.startToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.startToolStripMenuItem.Text = "Start";
             this.startToolStripMenuItem.Click += new System.EventHandler(this.Start_Click);
             // 
@@ -271,14 +264,16 @@ namespace AlvarezGabriel_GOL
             // 
             this.pauseToolStripMenuItem.Enabled = false;
             this.pauseToolStripMenuItem.Name = "pauseToolStripMenuItem";
-            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(159, 34);
+            this.pauseToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.pauseToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.pauseToolStripMenuItem.Text = "Pause";
             this.pauseToolStripMenuItem.Click += new System.EventHandler(this.Pause_Click);
             // 
             // nextToolStripMenuItem
             // 
             this.nextToolStripMenuItem.Name = "nextToolStripMenuItem";
-            this.nextToolStripMenuItem.Size = new System.Drawing.Size(159, 34);
+            this.nextToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
+            this.nextToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
             this.nextToolStripMenuItem.Text = "Next";
             this.nextToolStripMenuItem.Click += new System.EventHandler(this.Next_Click);
             // 
@@ -443,7 +438,7 @@ namespace AlvarezGabriel_GOL
             this.toolStrip1.Location = new System.Drawing.Point(0, 33);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.toolStrip1.Size = new System.Drawing.Size(860, 28);
+            this.toolStrip1.Size = new System.Drawing.Size(860, 25);
             this.toolStrip1.TabIndex = 1;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -454,7 +449,7 @@ namespace AlvarezGabriel_GOL
             this.newToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("newToolStripButton.Image")));
             this.newToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.newToolStripButton.Name = "newToolStripButton";
-            this.newToolStripButton.Size = new System.Drawing.Size(34, 23);
+            this.newToolStripButton.Size = new System.Drawing.Size(34, 20);
             this.newToolStripButton.Text = "&New";
             this.newToolStripButton.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
             // 
@@ -464,7 +459,7 @@ namespace AlvarezGabriel_GOL
             this.openToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("openToolStripButton.Image")));
             this.openToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolStripButton.Name = "openToolStripButton";
-            this.openToolStripButton.Size = new System.Drawing.Size(34, 23);
+            this.openToolStripButton.Size = new System.Drawing.Size(34, 20);
             this.openToolStripButton.Text = "&Open";
             this.openToolStripButton.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -474,14 +469,14 @@ namespace AlvarezGabriel_GOL
             this.saveToolStripButton.Image = ((System.Drawing.Image)(resources.GetObject("saveToolStripButton.Image")));
             this.saveToolStripButton.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolStripButton.Name = "saveToolStripButton";
-            this.saveToolStripButton.Size = new System.Drawing.Size(34, 23);
+            this.saveToolStripButton.Size = new System.Drawing.Size(34, 20);
             this.saveToolStripButton.Text = "&Save";
             this.saveToolStripButton.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 28);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
             // 
             // Start
             // 
@@ -489,7 +484,7 @@ namespace AlvarezGabriel_GOL
             this.Start.Image = ((System.Drawing.Image)(resources.GetObject("Start.Image")));
             this.Start.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(34, 23);
+            this.Start.Size = new System.Drawing.Size(34, 20);
             this.Start.Text = "toolStripButton1";
             this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
@@ -500,7 +495,7 @@ namespace AlvarezGabriel_GOL
             this.Pause.Image = ((System.Drawing.Image)(resources.GetObject("Pause.Image")));
             this.Pause.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Pause.Name = "Pause";
-            this.Pause.Size = new System.Drawing.Size(34, 23);
+            this.Pause.Size = new System.Drawing.Size(34, 20);
             this.Pause.Text = "toolStripButton1";
             this.Pause.Click += new System.EventHandler(this.Pause_Click);
             // 
@@ -510,7 +505,7 @@ namespace AlvarezGabriel_GOL
             this.Next.Image = ((System.Drawing.Image)(resources.GetObject("Next.Image")));
             this.Next.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Next.Name = "Next";
-            this.Next.Size = new System.Drawing.Size(34, 23);
+            this.Next.Size = new System.Drawing.Size(34, 20);
             this.Next.Text = "toolStripButton1";
             this.Next.Click += new System.EventHandler(this.Next_Click);
             // 
@@ -659,10 +654,10 @@ namespace AlvarezGabriel_GOL
             this.graphicsPanel1.BackColor = System.Drawing.SystemColors.Window;
             this.graphicsPanel1.ContextMenuStrip = this.contextMenuStrip1;
             this.graphicsPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graphicsPanel1.Location = new System.Drawing.Point(0, 61);
+            this.graphicsPanel1.Location = new System.Drawing.Point(0, 58);
             this.graphicsPanel1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.graphicsPanel1.Name = "graphicsPanel1";
-            this.graphicsPanel1.Size = new System.Drawing.Size(860, 438);
+            this.graphicsPanel1.Size = new System.Drawing.Size(860, 441);
             this.graphicsPanel1.TabIndex = 3;
             this.graphicsPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.graphicsPanel1_Paint);
             this.graphicsPanel1.MouseClick += new System.Windows.Forms.MouseEventHandler(this.graphicsPanel1_MouseClick);
@@ -726,7 +721,6 @@ namespace AlvarezGabriel_GOL
         private System.Windows.Forms.ToolStripMenuItem currentSeedToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem runToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem startToolStripMenuItem;
